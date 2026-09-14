@@ -255,6 +255,28 @@
   .drop-zone .dz-title{color:var(--text); font-size:.98rem; margin-bottom:.35rem;}
   .drop-zone input{display:none;}
 
+  .link-add-row{
+    display:flex;
+    gap:.6rem;
+    margin-top:1rem;
+  }
+  .link-add-input{
+    flex:1;
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:3px;
+    padding:.6rem .8rem;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:.88rem;
+  }
+  .link-add-input::placeholder{color:var(--text-faint);}
+  .link-add-btn{
+    padding:.6rem 1.1rem;
+    font-size:.85rem;
+    white-space:nowrap;
+  }
+
   .file-count{
     margin-top:1rem;
     font-size:.8rem;
@@ -553,12 +575,17 @@
     panel.className = 'upload-panel';
 
     const inputId = `file-input-${sectionName}`;
+    const linkInputId = `link-input-${sectionName}`;
     panel.innerHTML = `
       <label class="drop-zone" for="${inputId}">
         <p class="dz-title">Drag a file in, or just click here</p>
         <p>${MAX_FILES} files max for ${label.toLowerCase()}</p>
         <input type="file" id="${inputId}" multiple>
       </label>
+      <div class="link-add-row">
+        <input type="url" id="${linkInputId}" class="link-add-input" placeholder="Or paste a Google Classroom / Drive link">
+        <button type="button" class="btn btn-ghost link-add-btn">Add link</button>
+      </div>
       <div class="file-count">0 of ${MAX_FILES} files added</div>
       <div class="file-list"></div>
       <div class="submit-row">
@@ -568,6 +595,8 @@
 
     const dropZone = panel.querySelector('.drop-zone');
     const input = panel.querySelector('input[type="file"]');
+    const linkInput = panel.querySelector('.link-add-input');
+    const linkAddBtn = panel.querySelector('.link-add-btn');
     const fileList = panel.querySelector('.file-list');
     const fileCount = panel.querySelector('.file-count');
     const submitStatus = panel.querySelector('.submit-status');
@@ -582,7 +611,7 @@
 
         const link = document.createElement('a');
         link.className = 'fname';
-        link.href = dataURLtoBlobURL(file.data);
+        link.href = file.isLink ? file.url : dataURLtoBlobURL(file.data);
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.textContent = file.name;
@@ -594,7 +623,7 @@
         right.style.alignItems = 'center';
         const sizeSpan = document.createElement('span');
         sizeSpan.className = 'fsize';
-        sizeSpan.textContent = formatSize(file.size);
+        sizeSpan.textContent = file.isLink ? 'link' : formatSize(file.size);
         right.appendChild(sizeSpan);
 
         const removeBtn = document.createElement('button');
@@ -644,6 +673,38 @@
       render();
       input.value = '';
     }
+
+    function addLink(url){
+      url = url.trim();
+      if (!url) return;
+      if (!/^https?:\/\//i.test(url)){
+        submitStatus.textContent = `That doesn't look like a link (should start with http:// or https://).`;
+        return;
+      }
+      if (files.length >= MAX_FILES){
+        submitStatus.textContent = `That's 3 already, remove one to swap it out.`;
+        return;
+      }
+      let displayName;
+      try {
+        displayName = new URL(url).hostname.replace('www.', '') + ' link';
+      } catch (err) {
+        displayName = 'Link';
+      }
+      files.push({ name: displayName, isLink: true, url });
+      saveStoredFiles(sectionName, files);
+      submitStatus.textContent = `Link added.`;
+      render();
+      linkInput.value = '';
+    }
+
+    linkAddBtn.addEventListener('click', () => addLink(linkInput.value));
+    linkInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter'){
+        e.preventDefault();
+        addLink(linkInput.value);
+      }
+    });
 
     input.addEventListener('change', (e) => addFiles(e.target.files));
 
