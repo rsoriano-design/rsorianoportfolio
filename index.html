@@ -517,6 +517,19 @@
     });
   }
 
+  function dataURLtoBlobURL(dataURL){
+    const [header, base64] = dataURL.split(',');
+    const mimeMatch = header.match(/:(.*?);/);
+    const mime = mimeMatch ? mimeMatch[1] : 'application/octet-stream';
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++){
+      bytes[i] = binary.charCodeAt(i);
+    }
+    const blob = new Blob([bytes], { type: mime });
+    return URL.createObjectURL(blob);
+  }
+
   function loadStoredFiles(sectionName){
     try {
       const raw = localStorage.getItem(STORAGE_PREFIX + sectionName);
@@ -569,7 +582,7 @@
 
         const link = document.createElement('a');
         link.className = 'fname';
-        link.href = file.data;
+        link.href = dataURLtoBlobURL(file.data);
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.textContent = file.name;
