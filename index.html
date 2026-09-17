@@ -227,100 +227,75 @@
   .stack-list span:first-child{color:var(--text);}
   .stack-list span:last-child{color:var(--text-faint);}
 
-  /* ===== UPLOAD PANEL ===== */
-  .panel-grid{
+  /* ===== PROJECT CARDS ===== */
+  .card-grid{
     display:grid;
-    gap:1.5rem;
-    max-width:720px;
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    gap:1.25rem;
   }
-  .upload-panel{
+  .project-card{
     border:1px solid var(--border);
     background:var(--bg-panel);
     border-radius:4px;
-    padding:1.8rem;
-  }
-  .drop-zone{
-    border:1px dashed var(--border);
-    border-radius:4px;
-    padding:2rem 1.5rem;
-    text-align:center;
-    cursor:pointer;
-    transition:border-color .2s ease, background .2s ease;
-  }
-  .drop-zone:hover, .drop-zone.dragover{
-    border-color:var(--accent-dim);
-    background:var(--bg-elevated);
-  }
-  .drop-zone p{color:var(--text-dim); font-size:.92rem;}
-  .drop-zone .dz-title{color:var(--text); font-size:.98rem; margin-bottom:.35rem;}
-  .drop-zone input{display:none;}
-
-  .link-add-row{
-    display:flex;
-    gap:.6rem;
-    margin-top:1rem;
-  }
-  .link-add-input{
-    flex:1;
-    background:var(--bg-elevated);
-    border:1px solid var(--border);
-    border-radius:3px;
-    padding:.6rem .8rem;
-    color:var(--text);
-    font-family:'Inter',sans-serif;
-    font-size:.88rem;
-  }
-  .link-add-input::placeholder{color:var(--text-faint);}
-  .link-add-btn{
-    padding:.6rem 1.1rem;
-    font-size:.85rem;
-    white-space:nowrap;
-  }
-
-  .file-count{
-    margin-top:1rem;
-    font-size:.8rem;
-    color:var(--text-faint);
-  }
-  .file-list{
-    margin-top:1rem;
+    padding:1.6rem;
     display:flex;
     flex-direction:column;
-    gap:.5rem;
+    gap:.7rem;
   }
-  .file-row{
+  .card-top{
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:.6rem;
+  }
+  .card-tag{
+    font-size:.75rem;
+    color:var(--text-dim);
     background:var(--bg-elevated);
     border:1px solid var(--border-soft);
     border-radius:3px;
-    padding:.6rem .9rem;
-    font-size:.88rem;
+    padding:.2rem .55rem;
+    white-space:nowrap;
   }
-  .file-row .fname{color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70%; text-decoration:none; border-bottom:1px solid transparent;}
-  .file-row .fname:hover{color:var(--accent); border-bottom-color:var(--accent-dim);}
-  .file-row .fsize{color:var(--text-faint); margin-left:.6rem; font-size:.8rem;}
-  .file-row button{
-    background:none;
-    border:none;
+  .card-date{
+    font-size:.78rem;
     color:var(--text-faint);
-    cursor:pointer;
-    font-size:1rem;
-    line-height:1;
-    padding:.2rem .4rem;
+    white-space:nowrap;
   }
-  .file-row button:hover{color:var(--text);}
-  .submit-row{
-    margin-top:1.3rem;
+  .project-card h3{
+    font-size:1.05rem;
+    color:var(--text);
+    line-height:1.35;
+  }
+  .project-card p{
+    color:var(--text-dim);
+    font-size:.92rem;
+    flex-grow:1;
+  }
+  .card-links{
     display:flex;
-    align-items:center;
-    gap:1rem;
+    flex-wrap:wrap;
+    gap:.4rem 1.2rem;
+    margin-top:.2rem;
+    padding-top:.9rem;
+    border-top:1px solid var(--border-soft);
   }
-  .submit-status{
-    font-size:.85rem;
+  .card-link{
+    color:var(--text);
+    font-size:.88rem;
+    text-decoration:none;
+    border-bottom:1px solid var(--accent-dim);
+    padding-bottom:1px;
+  }
+  .card-link:hover{color:var(--accent); border-bottom-color:var(--accent);}
+  .empty-note{
+    grid-column:1/-1;
     color:var(--text-faint);
-    min-height:1.2em;
+    font-size:.9rem;
+    text-align:center;
+    border:1px dashed var(--border);
+    border-radius:4px;
+    padding:1.8rem 1.5rem;
   }
 
   /* ===== FOOTER ===== */
@@ -399,6 +374,7 @@
       <nav id="navLinks">
         <a href="#home" class="active">Home</a>
         <a href="#about">About</a>
+        <a href="#projects">Projects</a>
         <a href="#quizzes">Quizzes</a>
         <a href="#exam">Exam</a>
         <a href="#laboratory">Laboratory</a>
@@ -449,14 +425,24 @@
       </div>
     </section>
 
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-head">
+        <p class="kicker">personal work</p>
+        <h2>Projects</h2>
+        <p>A few things I've built on my own, outside of class. Click through to see each one.</p>
+      </div>
+      <div class="card-grid" data-section="projects"></div>
+    </section>
+
     <!-- QUIZZES -->
     <section id="quizzes">
       <div class="section-head">
         <p class="kicker">coursework</p>
         <h2>Quizzes</h2>
-        <p>Screenshots, PDFs, whatever you've got. Up to three files here for the quizzes I've completed.</p>
+        <p>Quizzes I've completed so far, linked below.</p>
       </div>
-      <div class="panel-grid" data-upload-section="quizzes"></div>
+      <div class="card-grid" data-section="quizzes"></div>
     </section>
 
     <!-- EXAM -->
@@ -464,9 +450,9 @@
       <div class="section-head">
         <p class="kicker">coursework</p>
         <h2>Exam</h2>
-        <p>Up to three files from my exam submissions go here.</p>
+        <p>Files from my exam submissions.</p>
       </div>
-      <div class="panel-grid" data-upload-section="exam"></div>
+      <div class="card-grid" data-section="exam"></div>
     </section>
 
     <!-- LABORATORY -->
@@ -474,9 +460,9 @@
       <div class="section-head">
         <p class="kicker">coursework</p>
         <h2>Laboratory</h2>
-        <p>Lab write-ups and activity files, up to three at a time.</p>
+        <p>Lab write-ups and activity files.</p>
       </div>
-      <div class="panel-grid" data-upload-section="laboratory"></div>
+      <div class="card-grid" data-section="laboratory"></div>
     </section>
 
     <footer>
@@ -520,215 +506,121 @@
 </script>
 
 <script>
-  // ---- Upload widgets (saved in this browser, per visitor) ----
-  const MAX_FILES = 3;
-  const STORAGE_PREFIX = 'portfolio-upload-';
+  // ---- Project / coursework cards ----
+  // This is the ONLY part you need to touch to add or update items.
+  // Each section below is a plain list. Add one object per item, using
+  // this shape (delete the fields you don't need):
+  //
+  //   {
+  //     title: 'Name of the item',            // required
+  //     description: 'One or two sentences.', // optional
+  //     tag: 'PDF',                            // optional, short label like "PDF", "Web App", "Docs"
+  //     date: 'Aug 2026',                      // optional
+  //     link: 'https://drive.google.com/...',  // a single file/link
+  //     linkLabel: 'View file',                // optional, defaults to "View file"
+  //     // OR, for more than one file/link on the same card:
+  //     links: [
+  //       { label: 'View report', url: 'https://...' },
+  //       { label: 'Live demo',   url: 'https://...' }
+  //     ]
+  //   }
+  //
+  // Leave a list as [] if there's nothing to show yet — the section
+  // will just display a placeholder note until you add something.
 
-  function formatSize(bytes){
-    if(bytes < 1024) return bytes + ' B';
-    if(bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
-    return (bytes/(1024*1024)).toFixed(1) + ' MB';
-  }
+  const portfolioData = {
 
-  function fileToDataURL(file){
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
+    projects: [
+      // { title: 'Weather App', description: 'A small app that pulls live weather by city.', tag: 'Web App', link: 'https://example.com', linkLabel: 'View project' },
+    ],
 
-  function dataURLtoBlobURL(dataURL){
-    const [header, base64] = dataURL.split(',');
-    const mimeMatch = header.match(/:(.*?);/);
-    const mime = mimeMatch ? mimeMatch[1] : 'application/octet-stream';
-    const binary = atob(base64);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++){
-      bytes[i] = binary.charCodeAt(i);
+    quizzes: [
+      // { title: 'Quiz 1 — HTML Basics', description: 'Covered semantic tags and page structure.', tag: 'PDF', date: 'Jul 2026', link: 'https://drive.google.com/your-link' },
+    ],
+    {title: 'QUIZ 1', description: '.', tag: 'Web App', link: 'QUIZ1.jpg', linkLabel: 'View project' }
+    {title: 'QUIZ 2', description: '.', tag: 'Web App', link: 'QUIZ2.jpg', linkLabel: 'View project' }
+    {title: 'QUIZ 3', description: '.', tag: 'Web App', link: 'QUIZ3.jpg', linkLabel: 'View project' }
+
+    exam: [
+      // { title: 'Midterm Exam', tag: 'PDF', link: 'https://drive.google.com/your-link' },
+    ],
+
+    laboratory: [
+      // { title: 'Lab 3 — Responsive Layout', description: 'Built a responsive grid without a framework.', tag: 'ZIP', link: 'https://drive.google.com/your-link' },
+    ],
+
+  };
+
+  function buildCard(item){
+    const card = document.createElement('article');
+    card.className = 'project-card';
+
+    const hasTop = item.tag || item.date;
+    if (hasTop){
+      const top = document.createElement('div');
+      top.className = 'card-top';
+      if (item.tag){
+        const tag = document.createElement('span');
+        tag.className = 'card-tag';
+        tag.textContent = item.tag;
+        top.appendChild(tag);
+      }
+      if (item.date){
+        const date = document.createElement('span');
+        date.className = 'card-date';
+        date.textContent = item.date;
+        top.appendChild(date);
+      }
+      card.appendChild(top);
     }
-    const blob = new Blob([bytes], { type: mime });
-    return URL.createObjectURL(blob);
-  }
 
-  function loadStoredFiles(sectionName){
-    try {
-      const raw = localStorage.getItem(STORAGE_PREFIX + sectionName);
-      return raw ? JSON.parse(raw) : [];
-    } catch (err) {
-      return [];
+    const title = document.createElement('h3');
+    title.textContent = item.title || 'Untitled';
+    card.appendChild(title);
+
+    if (item.description){
+      const desc = document.createElement('p');
+      desc.textContent = item.description;
+      card.appendChild(desc);
     }
-  }
 
-  function saveStoredFiles(sectionName, files){
-    try {
-      localStorage.setItem(STORAGE_PREFIX + sectionName, JSON.stringify(files));
-      return true;
-    } catch (err) {
-      return false;
-    }
-  }
-
-  function buildUploadPanel(sectionName, label){
-    const panel = document.createElement('div');
-    panel.className = 'upload-panel';
-
-    const inputId = `file-input-${sectionName}`;
-    const linkInputId = `link-input-${sectionName}`;
-    panel.innerHTML = `
-      <label class="drop-zone" for="${inputId}">
-        <p class="dz-title">Drag a file in, or just click here</p>
-        <p>${MAX_FILES} files max for ${label.toLowerCase()}</p>
-        <input type="file" id="${inputId}" multiple>
-      </label>
-      <div class="link-add-row">
-        <input type="url" id="${linkInputId}" class="link-add-input" placeholder="Or paste a Google Classroom / Drive link">
-        <button type="button" class="btn btn-ghost link-add-btn">Add link</button>
-      </div>
-      <div class="file-count">0 of ${MAX_FILES} files added</div>
-      <div class="file-list"></div>
-      <div class="submit-row">
-        <span class="submit-status"></span>
-      </div>
-    `;
-
-    const dropZone = panel.querySelector('.drop-zone');
-    const input = panel.querySelector('input[type="file"]');
-    const linkInput = panel.querySelector('.link-add-input');
-    const linkAddBtn = panel.querySelector('.link-add-btn');
-    const fileList = panel.querySelector('.file-list');
-    const fileCount = panel.querySelector('.file-count');
-    const submitStatus = panel.querySelector('.submit-status');
-
-    let files = loadStoredFiles(sectionName);
-
-    function render(){
-      fileList.innerHTML = '';
-      files.forEach((file, i) => {
-        const row = document.createElement('div');
-        row.className = 'file-row';
-
-        const link = document.createElement('a');
-        link.className = 'fname';
-        link.href = file.isLink ? file.url : dataURLtoBlobURL(file.data);
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = file.name;
-        link.title = 'Click to open';
-        row.appendChild(link);
-
-        const right = document.createElement('span');
-        right.style.display = 'flex';
-        right.style.alignItems = 'center';
-        const sizeSpan = document.createElement('span');
-        sizeSpan.className = 'fsize';
-        sizeSpan.textContent = file.isLink ? 'link' : formatSize(file.size);
-        right.appendChild(sizeSpan);
-
-        const removeBtn = document.createElement('button');
-        removeBtn.type = 'button';
-        removeBtn.setAttribute('aria-label', `Remove ${file.name}`);
-        removeBtn.textContent = '✕';
-        removeBtn.addEventListener('click', () => {
-          files.splice(i, 1);
-          saveStoredFiles(sectionName, files);
-          submitStatus.textContent = '';
-          render();
-        });
-        right.appendChild(removeBtn);
-
-        row.appendChild(right);
-        fileList.appendChild(row);
+    const links = item.links || (item.link ? [{ label: item.linkLabel || 'View file', url: item.link }] : []);
+    if (links.length){
+      const linksRow = document.createElement('div');
+      linksRow.className = 'card-links';
+      links.forEach(l => {
+        const a = document.createElement('a');
+        a.className = 'card-link';
+        a.href = l.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = l.label || 'View file';
+        linksRow.appendChild(a);
       });
-      fileCount.textContent = `${files.length} of ${MAX_FILES} files added`;
+      card.appendChild(linksRow);
     }
 
-    async function addFiles(newFiles){
-      const incoming = Array.from(newFiles);
-      const room = MAX_FILES - files.length;
-      if (room <= 0){
-        submitStatus.textContent = `That's 3 already, remove one to swap it out.`;
-        return;
-      }
-      const toAdd = incoming.slice(0, room);
-      submitStatus.textContent = `Saving...`;
-      for (const file of toAdd){
-        try {
-          const data = await fileToDataURL(file);
-          files.push({ name: file.name, size: file.size, type: file.type, data });
-        } catch (err) {
-          submitStatus.textContent = `Couldn't read ${file.name}.`;
-        }
-      }
-      const saved = saveStoredFiles(sectionName, files);
-      if (!saved){
-        submitStatus.textContent = `That file's too large to keep in the browser.`;
-        files = loadStoredFiles(sectionName);
-      } else if (incoming.length > room){
-        submitStatus.textContent = `Only room for ${room} more, max is ${MAX_FILES}.`;
-      } else {
-        submitStatus.textContent = `Saved. Click a file name to open it.`;
-      }
-      render();
-      input.value = '';
-    }
-
-    function addLink(url){
-      url = url.trim();
-      if (!url) return;
-      if (!/^https?:\/\//i.test(url)){
-        submitStatus.textContent = `That doesn't look like a link (should start with http:// or https://).`;
-        return;
-      }
-      if (files.length >= MAX_FILES){
-        submitStatus.textContent = `That's 3 already, remove one to swap it out.`;
-        return;
-      }
-      let displayName;
-      try {
-        displayName = new URL(url).hostname.replace('www.', '') + ' link';
-      } catch (err) {
-        displayName = 'Link';
-      }
-      files.push({ name: displayName, isLink: true, url });
-      saveStoredFiles(sectionName, files);
-      submitStatus.textContent = `Link added.`;
-      render();
-      linkInput.value = '';
-    }
-
-    linkAddBtn.addEventListener('click', () => addLink(linkInput.value));
-    linkInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter'){
-        e.preventDefault();
-        addLink(linkInput.value);
-      }
-    });
-
-    input.addEventListener('change', (e) => addFiles(e.target.files));
-
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragover');
-    });
-    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
-      addFiles(e.dataTransfer.files);
-    });
-
-    render();
-    return panel;
+    return card;
   }
 
-  document.querySelectorAll('[data-upload-section]').forEach(container => {
-    const name = container.getAttribute('data-upload-section');
-    const label = name.charAt(0).toUpperCase() + name.slice(1);
-    container.appendChild(buildUploadPanel(name, label));
+  function renderSection(container, items){
+    container.innerHTML = '';
+    if (!items || items.length === 0){
+      const note = document.createElement('p');
+      note.className = 'empty-note';
+      note.textContent = "Nothing posted here yet — check back soon.";
+      container.appendChild(note);
+      return;
+    }
+    items.forEach(item => container.appendChild(buildCard(item)));
+  }
+
+  document.querySelectorAll('[data-section]').forEach(container => {
+    const name = container.getAttribute('data-section');
+    renderSection(container, portfolioData[name]);
   });
 </script>
 
 </body>
 </html>
+ 
