@@ -508,20 +508,33 @@
 <script>
   // ---- Project / coursework cards ----
   // This is the ONLY part you need to touch to add or update items.
+  //
+  // Your files live right here in the repo now (not on Google Drive),
+  // so keep them in a folder next to this index.html, for example:
+  //
+  //   /files/projects/weather-app.zip
+  //   /files/quizzes/quiz-1-html-basics.pdf
+  //   /files/exam/midterm-exam.pdf
+  //   /files/laboratory/lab-3-responsive-layout.zip
+  //
+  // Then point "link" at that path instead of a URL (paths are relative
+  // to this file). GitHub is case-sensitive, so keep folder and file
+  // names lowercase and consistent, and avoid spaces (use hyphens).
+  //
   // Each section below is a plain list. Add one object per item, using
   // this shape (delete the fields you don't need):
   //
   //   {
-  //     title: 'Name of the item',            // required
-  //     description: 'One or two sentences.', // optional
-  //     tag: 'PDF',                            // optional, short label like "PDF", "Web App", "Docs"
-  //     date: 'Aug 2026',                      // optional
-  //     link: 'https://drive.google.com/...',  // a single file/link
-  //     linkLabel: 'View file',                // optional, defaults to "View file"
-  //     // OR, for more than one file/link on the same card:
+  //     title: 'Name of the item',                 // required
+  //     description: 'One or two sentences.',      // optional
+  //     tag: 'PDF',                                 // optional, short label like "PDF", "Web App", "Docs"
+  //     date: 'Aug 2026',                           // optional
+  //     link: 'files/quizzes/quiz-1.pdf',           // path to the file in this repo
+  //     linkLabel: 'View file',                     // optional, defaults to "View file"
+  //     // OR, for more than one file on the same card:
   //     links: [
-  //       { label: 'View report', url: 'https://...' },
-  //       { label: 'Live demo',   url: 'https://...' }
+  //       { label: 'View report', url: 'files/exam/midterm-report.pdf' },
+  //       { label: 'Source files', url: 'files/projects/weather-app.zip' }
   //     ]
   //   }
   //
@@ -531,22 +544,20 @@
   const portfolioData = {
 
     projects: [
-      // { title: 'Weather App', description: 'A small app that pulls live weather by city.', tag: 'Web App', link: 'https://example.com', linkLabel: 'View project' },
+      // { title: 'Weather App', description: 'A small app that pulls live weather by city.', tag: 'Web App', link: 'files/projects/weather-app.zip', linkLabel: 'View project' },
     ],
 
     quizzes: [
-      // { title: 'Quiz 1 — HTML Basics', description: 'Covered semantic tags and page structure.', tag: 'PDF', date: 'Jul 2026', link: 'https://drive.google.com/your-link' },
-    {title: 'QUIZ 1', description: '.', tag: 'jpg', link: 'QUIZ1.jpg', linkLabel: 'View project' }
-    {title: 'QUIZ 2', description: '.', tag: 'jpg', link: 'QUIZ2.jpg', linkLabel: 'View project' }
-    {title: 'QUIZ 3', description: '.', tag: 'jpg', link: 'QUIZ3.jpg', linkLabel: 'View project' }
+      // { title: 'Quiz 1 — HTML Basics', description: 'Covered semantic tags and page structure.', tag: 'PDF', date: 'Jul 2026', link: 'files/quizzes/quiz-1-html-basics.pdf' },
+      { title: 'Quiz 1', description: 'OW', tag: 'JPG', date: 'Jul 2026', link: 'QUIZ1.jpg' }
     ],
 
     exam: [
-      // { title: 'Midterm Exam', tag: 'PDF', link: 'https://drive.google.com/your-link' },
+      // { title: 'Midterm Exam', tag: 'PDF', link: 'files/exam/midterm-exam.pdf' },
     ],
 
     laboratory: [
-      // { title: 'Lab 3 — Responsive Layout', description: 'Built a responsive grid without a framework.', tag: 'ZIP', link: 'https://drive.google.com/your-link' },
+      // { title: 'Lab 3 — Responsive Layout', description: 'Built a responsive grid without a framework.', tag: 'ZIP', link: 'files/laboratory/lab-3-responsive-layout.zip' },
     ],
 
   };
@@ -623,4 +634,3 @@
 
 </body>
 </html>
- 
